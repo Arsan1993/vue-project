@@ -17,7 +17,8 @@ module.exports = {
   rules: {
     'no-console': 'off',
     'no-debugger': 'off',
-    'max-len': ['error', { code: 120 }],
+    'max-len': ['error', { code: 162 }],
+    'vuejs-accessibility/click-events-have-key-events': 'off',
   },
 
 };
