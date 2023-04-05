@@ -8,7 +8,7 @@
             </a>
           </li>
           <li class="pagination__item" v-for="pageNumber in pages" :key="pageNumber">
-            <a href="#" class="pagination__link" :class="{'pagination__link--current' : pageNumber === page}" @click.prevent="paginate(pageNumber)">
+            <a href="#" class="pagination__link" :class="{'pagination__link--current': pageNumber === page}" @click.prevent="paginate(pageNumber)">
               {{ pageNumber }}
             </a>
           </li>
@@ -26,7 +26,7 @@
 export default {
   model: {
     prop: 'page',
-    event: 'pagination',
+    event: 'paginate',
   },
   props: ['page', 'count', 'perPage'],
   computed: {
