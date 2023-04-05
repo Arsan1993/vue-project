@@ -2,7 +2,7 @@
 <template>
 <li class="catalog__item">
             <a class="catalog__pic" href="#">
-              <img src="product.image" alt="product.title">
+              <img :src="product.image" alt="product.title">
             </a>
 
             <h3 class="catalog__title">

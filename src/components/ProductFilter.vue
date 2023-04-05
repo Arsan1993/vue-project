@@ -3,7 +3,7 @@
     <aside class="filter">
         <h2 class="filter__title">Фильтры</h2>
 
-        <form class="filter__form form" action="#" method="get" @click.prevent="submit">
+        <form class="filter__form form" action="#" method="get" @submit.prevent="submit">
           <fieldset class="form__block">
             <legend class="form__legend">Цена</legend>
             <label class="form__label form__label--price">
@@ -19,7 +19,7 @@
           <fieldset class="form__block">
             <legend class="form__legend">Категория</legend>
             <label class="form__label form__label--select">
-              <select class="form__select" type="text" name="category" v-model.number="currentCategoriyId">
+              <select class="form__select" type="text" name="category" v-model.number="currentCategoryId">
                 <option value="0">Все категории</option>
                 <option :value="category.id" v-for="category in categories" :key="category.id">{{ category.title }}</option>
               </select>
@@ -136,10 +136,10 @@
             </ul>
           </fieldset>
 
-          <button class="filter__submit button button--primery" type="submit" @click.prevent="reset">
+          <button class="filter__submit button button--primery" type="submit">
             Применить
           </button>
-          <button class="filter__reset button button--second" type="button">
+          <button class="filter__reset button button--second" type="button" @click.prevent="reset">
             Сбросить
           </button>
         </form>
@@ -154,10 +154,10 @@ export default {
     return {
       currentPriceFrom: 0,
       currentPriceTo: 0,
-      currentCategoriyId: 0,
+      currentCategoryId: 0,
     };
   },
-  props: ['priceFrom', 'priceTo', 'categoriyId'],
+  props: ['priceFrom', 'priceTo', 'categoryId'],
   computed: {
     /*  currentPriceFrom: {
       get() {
@@ -174,18 +174,18 @@ export default {
   watch: {
     priceFrom(value) { this.currentPriceFrom = value; },
     priceTo(value) { this.currentPriceTo = value; },
-    categoryId(value) { this.currentCategoriyId = value; },
+    categoryId(value) { this.currentCategoryId = value; },
   },
   methods: {
     submit() {
-      this.$emit('update: priceFrom', this.currentPriceFrom);
-      this.$emit('update: priceTo', this.currentPriceTo);
-      this.$emit('update: categoryId', this.currentCategoriyId);
+      this.$emit('update:priceFrom', this.currentPriceFrom);
+      this.$emit('update:priceTo', this.currentPriceTo);
+      this.$emit('update:categoryId', this.currentCategoryId);
     },
     reset() {
-      this.$emit('update: priceFrom', 0);
-      this.$emit('update: priceTo', 0);
-      this.$emit('update: categoryId', 0);
+      this.$emit('update:priceFrom', 0);
+      this.$emit('update:priceTo', 0);
+      this.$emit('update:categoryId', 0);
     },
   },
 
