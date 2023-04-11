@@ -5,14 +5,15 @@
         Каталог
       </h1>
       <span class="content__info">
-        152 товара
+        {{ countProducts }} товар
       </span>
     </div>
 
     <div class="content__catalog">
       <ProductFilter :price-from.sync="filterPriceFrom" :price-to.sync="filterPriceTo" :category-id.sync="filterCategoryId"/>
 <section class="catalog">
-  <ProductList :products="products"/>
+
+  <ProductList :products="products" @gotoPage="(pageName, pageParams) => $emit('gotoPage', pageName, pageParams)"/>
 
   <BasePagination v-model="page" :count="countProducts" :per-page="productsPerPage"/>
  </section>
@@ -29,6 +30,7 @@ import ProductFilter from '@/components/ProductFilter.vue';
 /* import product from './data/product'; */
 
 export default {
+  name: 'mainPage',
   components: { ProductList, BasePagination, ProductFilter },
   data() {
     return {

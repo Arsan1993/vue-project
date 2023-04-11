@@ -19,6 +19,7 @@ module.exports = {
     'no-debugger': 'off',
     'max-len': ['error', { code: 999 }],
     'vuejs-accessibility/click-events-have-key-events': 'off',
+    'no-shadow': 'off',
   },
 
 };

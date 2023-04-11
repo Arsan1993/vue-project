@@ -1,9 +1,9 @@
 <!-- eslint-disable vuejs-accessibility/label-has-for -->
 <template>
 <li class="catalog__item">
-            <a class="catalog__pic" href="#" @click.prevent="gotoPage('product', {id: product.id})">
-              <img :src="product.image" alt="product.title">
-            </a>
+            <router-link class="catalog__pic" :to="{name: 'product', params: {id: product.id}}">
+              <img :src="product.image" :alt="product.title">
+            </router-link>
 
             <h3 class="catalog__title">
               <a href="#">
@@ -46,6 +46,7 @@ import gotoPage from '@/helpers/gotoPage';
 import numberFormat from '@/helpers/numberFormat';
 
 export default {
+  name: 'ProductItem',
   data() {
     return {
       color: '#73B6EA',
