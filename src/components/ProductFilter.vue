@@ -150,6 +150,7 @@
 import categories from '../data/categories';
 
 export default {
+  name: 'ProductFilter',
   data() {
     return {
       currentPriceFrom: 0,
