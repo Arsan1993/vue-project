@@ -147,7 +147,9 @@
 </template>
 
 <script>
-import categories from '../data/categories';
+/* import categories from '../data/categories'; */
+import axios from 'axios';
+import BASE_API_URL from '@/config';
 
 export default {
   name: 'ProductFilter',
@@ -156,9 +158,11 @@ export default {
       currentPriceFrom: 0,
       currentPriceTo: 0,
       currentCategoryId: 0,
+      categoriesData: null,
+      colorsData: null,
     };
   },
-  props: ['priceFrom', 'priceTo', 'categoryId'],
+  props: ['priceFrom', 'priceTo', 'categoryId', 'page'],
   computed: {
     /*  currentPriceFrom: {
       get() {
@@ -169,7 +173,7 @@ export default {
       },
     }, */
     categories() {
-      return categories;
+      return this.categoriesData ? this.categoriesData.items : [];
     },
   },
   watch: {
@@ -188,7 +192,16 @@ export default {
       this.$emit('update:priceTo', 0);
       this.$emit('update:categoryId', 0);
     },
-  },
+    loadCategories() {
+      axios.get(`${BASE_API_URL}/api/productCategories`)
+        .then((response) => {
+          this.categoriesData = response.data;
+        });
+    },
 
+  },
+  created() {
+    this.loadCategories();
+  },
 };
 </script>
