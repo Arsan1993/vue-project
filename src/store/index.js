@@ -13,8 +13,17 @@ export default new Vuex.Store({
     cartProducts: [],
     userAccesKey: null,
     cartProductsData: [],
+    orderInfo: null,
+    deliveryPrice: 500.0,
   },
   mutations: {
+    updateOrderInfo(state, orderInfo) {
+      state.orderInfo = orderInfo;
+    },
+    resetCart(state) {
+      state.cartProducts = [];
+      state.cartProductsData = [];
+    },
     /* addProductToCart(state, { productId, amount }) {
       const item = state.cartProducts.find((item) => item.productId === productId);
       if (item) {
@@ -68,15 +77,26 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    loadOrderInfo(context, orderId) {
+      return axios
+      .get(`${BASE_API_URL}/api/orders/${orderId}`, {
+        params: {
+          userAccessKey: context.state.userAccessKey,
+        },
+      })
+      .then(response => {
+        context.commit('updateOrderInfo', response.data);
+      });
+    },
     loadCart(context) {
       return axios
         .get(`${BASE_API_URL}/api/baskets`, {
           params: {
-            userAccessKey: context.state.userAccesKey,
+            userAccessKey: context.state.userAccessKey,
           },
         })
         .then((response) => {
-          if (!context.state.userAccesKey) {
+          if (!context.state.userAccessKey) {
             localStorage.setItem('userAccessKey', response.data.user.accessKey);
             context.commit('updateUserAccessKey', response.data.user.accessKey);
           }
@@ -88,8 +108,8 @@ export default new Vuex.Store({
       return (new Promise(resolve => setTimeout(resolve, 2000)))
         .then(() => {
           return axios.post(`${BASE_API_URL}/api/baskets/products`, {
-            productId: productId,
-            quantity: amount
+            productId,
+            quantity: amount,
           }, {
             params: {
               userAccessKey: context.state.userAccesKey,
@@ -109,11 +129,11 @@ export default new Vuex.Store({
       return (new Promise(resolve => setTimeout(resolve, 2000)))
         .then(() => {
           return axios.put(`${BASE_API_URL}/api/baskets/products`, {
-            productId: productId,
-            quantity: amount
+            productId,
+            quantity: amount,
           }, {
             params: {
-              userAccessKey: context.state.userAccesKey,
+              userAccessKey: context.state.userAccessKey,
             }
           })
           .then(response => {
@@ -125,13 +145,13 @@ export default new Vuex.Store({
         })
     },
     deleteCartProduct(context, productId) {
-      context.commit('deleteCartProduct', response.data.items);
+      context.commit('deleteCartProduct', /* response.data.items */productId);
       return axios.delete(`${BASE_API_URL}/api/baskets/products`, {
         data: {
           productId,
         },
         params: {
-          userAccessKey: context.state.userAccesKey,
+          userAccessKey: context.state.userAccessKey,
         },
         })
         .then((response) => {

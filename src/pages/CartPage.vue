@@ -19,7 +19,7 @@
         Корзина
       </h1>
       <span class="content__info">
-        Товаров: {{ amountTotal }}
+        Товаров:{{ cartItems }}
       </span>
     </div>
 
@@ -40,9 +40,10 @@
             Итого: <span>{{ totalPrice | numberFormat }} ₽</span>
           </p>
 
-          <button class="cart__button button button--primery" type="submit">
+       <router-link v-if="cartNotEmpty" tag="button" :to="{name: 'order'}"
+                       class="cart__button button button--primery" type="submit">
             Оформить заказ
-          </button>
+          </router-link>
         </div>
       </form>
     </section>
@@ -59,7 +60,13 @@ export default {
   filters: { numberFormat },
   components: { CartItem },
   computed: {
-    ...mapGetters({ products: 'cartDetailProducts', totalPrice: 'cartTotalPrice', amountTotal: 'amountProduct' }),
+    ...mapGetters({ products: 'cartDetailProducts', totalPrice: 'cartTotalPrice' }),
+    products() {
+      return this.$store.getters.cartDetailProducts;
+    },
+    cartNotEmpty() {
+      return this.$store.state.cartProducts.length > 0;
+    },
 
   },
 };
