@@ -11,7 +11,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     cartProducts: [],
-    userAccesKey: null,
+    userAccessKey: null,
     cartProductsData: [],
     orderInfo: null,
     deliveryPrice: 500.0,
@@ -112,7 +112,7 @@ export default new Vuex.Store({
             quantity: amount,
           }, {
             params: {
-              userAccessKey: context.state.userAccesKey,
+              userAccessKey: context.state.userAccessKey,
             }
           })
           .then(response => {

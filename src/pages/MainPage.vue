@@ -16,7 +16,7 @@
     <div v-if="productsLoading">Загрузка товаров...</div>
     <div v-if="productsLoadingFailed">Произошла ошибка при загрузке товаров <button @click.prevent="loadProducts">Попробовать еще раз</button></div>
 
-  <ProductList :products="products" @gotoPage="(pageName, pageParams) => $emit('gotoPage', pageName, pageParams)" :color-id="filterColorId"/>
+  <ProductList :products="products" :color-id="filterColorId"/>
 
   <BasePagination v-model="page" :count="countProducts" :per-page="productsPerPage"/>
  </section>

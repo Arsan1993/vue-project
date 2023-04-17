@@ -19,7 +19,7 @@
         Корзина
       </h1>
       <span class="content__info">
-        Товаров:{{ cartItems }}
+        Товаров:{{ products.length }}
       </span>
     </div>
 
